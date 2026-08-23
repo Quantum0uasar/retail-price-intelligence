@@ -1,85 +1,113 @@
-# Retail Price Elasticity & Demand Intelligence Dashboard
+Paste this as your new `README.md`. It keeps the work honest, replaces Streamlit/Plotly with Tableau, and adds the Tableau export step you will need to implement. The current README is much shorter and still instructs users to run `streamlit run dashboard/app.py`, so this rewrite should accompany the code changes discussed earlier. [github](https://github.com/Quantum0uasar/retail-price-intelligence/edit/main/README.md)
 
-A data science project that analyzes Brazilian e-commerce transactions to identify **price-sensitive product categories, customer segments, and potential pricing opportunities**.
+````markdown
+# Retail Demand & Price Intelligence Dashboard
+
+A portfolio data analytics project that analyzes public Brazilian e-commerce transaction data to surface patterns in category performance, customer behavior, pricing, demand, and freight costs.
+
+The project uses Python and SQL to clean, validate, model, and prepare data for an interactive Tableau dashboard. Findings are based on historical public data and are intended for portfolio analysis only.
 
 ## Business Problem
 
-Retail companies need to understand how customers react to different prices.
+Retail pricing and category-management teams need a clear way to monitor commercial performance and identify areas that may warrant further pricing review.
 
-This project turns historical sales data into insights that can help pricing and consulting teams make more informed commercial decisions.
+This project transforms historical e-commerce transactions into decision-support analysis that helps users explore:
 
-## What This Project Does
+- Which product categories generate the most revenue and sales volume
+- How sales trends change over time
+- How average prices, units sold, and freight burden differ across categories
+- Which categories appear more price-sensitive in historical data
+- Which customer groups demonstrate different purchasing behavior
+- Which categories may deserve further commercial or pricing review
 
-* Cleans raw Olist e-commerce data using **Python and Pandas**
-* Loads cleaned data into a **SQLite database**
-* Uses **SQL queries** to analyze revenue, prices, order trends, and freight costs
-* Estimates **price elasticity of demand** by product category using OLS regression
-* Creates customer groups using **RFM analysis and K-Means clustering**
-* Simulates how price changes could affect demand and revenue
-* Displays the results in an interactive **Streamlit + Plotly dashboard**
+## Project Features
+
+- Cleans and validates raw Olist e-commerce data using Python and Pandas
+- Loads cleaned data into a SQLite database
+- Uses SQL queries and views to calculate business metrics
+- Estimates category-level price elasticity using log-log OLS regression
+- Segments customers with RFM analysis and K-Means clustering
+- Exports analytics-ready datasets for Tableau
+- Presents commercial performance, pricing patterns, and customer insights in Tableau Public
+
+## Tableau Dashboard
+
+The Tableau dashboard contains the following analysis views:
+
+- **Executive Overview:** KPI cards, monthly revenue trends, category performance, and geographic performance
+- **Pricing & Demand:** Price-versus-quantity analysis, average price comparisons, freight burden, and estimated category elasticity
+- **Customer Segmentation:** RFM-based customer groups and spending behavior
+- **Category Drill-Down:** Filters for category, date, and commercial metrics
+- **Insights & Recommendations:** Portfolio findings that identify patterns for additional pricing or category review
+
+> **Tableau Public dashboard:** Add your published Tableau Public link here after publishing.
 
 ## Tech Stack
 
-* Python
-* Pandas
-* SQLite
-* SQL
-* Statsmodels
-* Scikit-learn
-* Streamlit
-* Plotly
+- Python
+- Pandas
+- SQLite
+- SQL
+- Statsmodels
+- Scikit-learn
+- Tableau Public
+- Git and GitHub
 
 ## Data Pipeline
 
 ```text
-Olist CSV Files
-      ↓
-Python + Pandas ETL
-      ↓
+Olist Public CSV Files
+        ↓
+Python + Pandas ETL and Validation
+        ↓
 SQLite Database
-      ↓
-SQL Business Analysis
-      ↓
-Price Elasticity + Customer Segmentation
-      ↓
-Streamlit + Plotly Dashboard
+        ↓
+SQL Business Analysis and Analytics Views
+        ↓
+Elasticity Modeling + Customer Segmentation
+        ↓
+Tableau-Ready CSV Exports
+        ↓
+Interactive Tableau Dashboard
 ```
 
-## ETL Pipeline
+## ETL and Validation
 
-The raw Olist CSV files are first loaded using Pandas.
+The raw Olist CSV files are loaded and processed with Pandas before analysis.
 
-The pipeline then:
+Key preparation steps include:
 
-1. Removes duplicate records
-2. Handles missing values
-3. Converts dates into usable datetime values
-4. Filters for completed customer orders
-5. Validates price and freight values
-6. Loads cleaned datasets into SQLite
+1. Removing duplicate records
+2. Handling missing values
+3. Converting date columns to valid datetime values
+4. Filtering for completed customer orders
+5. Validating prices, freight values, and quantities
+6. Creating analysis fields such as order month, revenue, average price, and freight burden
+7. Loading cleaned tables into SQLite
 
-This creates one structured database that can be queried using SQL.
+Validation rules and assumptions should be documented in the project methodology.
 
 ## SQL Analysis
 
-The project uses SQL to answer business questions such as:
+SQL is used to prepare business metrics and Tableau-ready tables, including:
 
-* Which product categories generate the most revenue?
-* How does order volume change over time?
-* What are the average, minimum, and maximum prices by category?
-* Which categories have high shipping costs relative to product price?
+- Monthly revenue and order trends
+- Category revenue, units sold, and average selling price
+- Product-level sales performance
+- Freight cost relative to product price
+- Customer purchase behavior
+- Top- and bottom-performing categories
+- Analytics views for Tableau reporting
 
 ## Price Elasticity Analysis
 
-Price elasticity estimates how strongly customer demand changes when product prices change.
-
-The project uses a log-log OLS regression:
+The project estimates category-level price elasticity using a log-log OLS regression model:
 
 ```text
 log(quantity) = β0 + β1 × log(price)
 ```
 
-The price coefficient represents the estimated elasticity.
+The price coefficient, \(β1\), represents the estimated elasticity.
 
 For example:
 
@@ -87,66 +115,56 @@ For example:
 Elasticity = -2.0
 ```
 
-This means that historically, a **1% higher price was associated with roughly 2% lower demand**.
+This means a 1% higher historical price was associated with approximately 2% lower demand in the model.
 
-More negative values indicate stronger price sensitivity.
-
-## Price Change Simulator
-
-The Streamlit dashboard includes an interactive slider that allows a user to simulate a price increase or decrease.
-
-Using the estimated elasticity, the dashboard calculates:
-
-* Estimated demand change
-* Estimated revenue change
-
-This allows users to explore possible pricing scenarios visually.
+More negative values suggest stronger historical price sensitivity. These estimates are descriptive associations and should not be interpreted as causal evidence.
 
 ## Customer Segmentation
 
-Customers are analyzed using RFM:
+Customers are grouped with RFM analysis:
 
-* **Recency** — how recently the customer purchased
-* **Frequency** — how often the customer purchased
-* **Monetary** — how much the customer spent
+- **Recency:** How recently a customer purchased
+- **Frequency:** How often a customer purchased
+- **Monetary:** How much a customer spent
 
-The RFM variables are standardized using `StandardScaler`.
+RFM measures are standardized with `StandardScaler`, then K-Means clustering assigns customers to behavioral segments.
 
-K-Means clustering then groups customers into four behavioral segments.
+This helps illustrate differences among high-value, repeat, recent, and lower-spending customer groups.
 
-These groups can help a retailer understand differences between high-value, frequent, recent, and lower-spending customers.
+## Commercial Performance Analysis
 
-## Category Commercial Performance
+The dashboard evaluates category performance through metrics such as:
 
-The dashboard compares product categories using:
+- Revenue
+- Orders and units sold
+- Average selling price
+- Average freight cost
+- Freight burden relative to product price
+- Historical estimated elasticity
+- Customer-segment contribution
 
-* Revenue
-* Average selling price
-* Units sold
-* Freight burden
+These metrics help users compare categories and identify areas that may merit further business review.
 
-The Plotly visualization makes it easier to identify categories with strong sales performance or unusually high shipping costs.
+## Strategic Use Case
 
-## Strategic Pricing Use Case
+A retail pricing, consulting, or analytics team could use an analysis like this to:
 
-A pricing or consulting team could use this type of analysis to:
-
-* Identify categories where customers appear highly price-sensitive
-* Evaluate potential risks from price increases
-* Identify categories where moderate price changes may be less risky
-* Understand valuable customer groups
-* Compare commercial performance across categories
-* Support pricing recommendations using historical data instead of intuition alone
+- Monitor category-level revenue and demand trends
+- Identify categories with historically price-sensitive demand
+- Compare sales volume, prices, and freight burden across product groups
+- Explore potential risks associated with price changes
+- Understand differences among customer segments
+- Prioritize categories for deeper pricing, promotion, or operational analysis
 
 ## Important Limitations
 
-The Olist dataset is observational rather than experimental.
+The Olist dataset is public, historical, and observational.
 
-Therefore, the elasticity estimates represent **historical associations**, not guaranteed causal effects.
-
-Other factors such as promotions, seasonality, product mix, seller behavior, and competition may also influence demand.
-
-The dataset also does not provide product cost or COGS information, so this project analyzes **commercial performance rather than true profitability**.
+- Elasticity estimates represent historical associations, not proven causal effects
+- Promotions, seasonality, product mix, seller behavior, product quality, competition, and other factors may affect demand
+- The dataset does not include full product cost or COGS information, so this project does not measure true profitability
+- Findings are portfolio analysis and are not real-world business recommendations
+- Tableau visualizations are intended to support exploration of the dataset, not to make automated pricing decisions
 
 ## Dataset
 
@@ -154,14 +172,16 @@ The dataset also does not provide product cost or COGS information, so this proj
 
 The dataset contains approximately:
 
-* 99,000 customers
-* 96,000 delivered orders
-* 112,000 order items
-* 32,000 products
+- 99,000 customers
+- 96,000 delivered orders
+- 112,000 order items
+- 32,000 products
+
+Add the original dataset source and license link here.
 
 ## Running the Project
 
-Create and activate the virtual environment:
+Create and activate a virtual environment:
 
 ```bash
 python3 -m venv .venv
@@ -192,11 +212,13 @@ Run the customer segmentation model:
 python models/segmentation.py
 ```
 
-Start the dashboard:
+Create Tableau-ready data exports:
 
 ```bash
-streamlit run dashboard/app.py
+python src/export_tableau_data.py
 ```
+
+Open the exported files in Tableau Desktop or Tableau Public, build the dashboard, and publish it to Tableau Public.
 
 ## Project Structure
 
@@ -205,23 +227,31 @@ retail-price-intelligence/
 │
 ├── data/
 │   ├── raw/
-│   └── processed/
+│   ├── processed/
+│   └── tableau/
 │
 ├── database/
 │   └── retail.db
 │
 ├── src/
-│   └── etl.py
+│   ├── etl.py
+│   └── export_tableau_data.py
 │
 ├── sql/
-│   └── analysis.sql
+│   ├── analysis.sql
+│   └── tableau_marts.sql
 │
 ├── models/
 │   ├── elasticity.py
 │   └── segmentation.py
 │
 ├── dashboard/
-│   └── app.py
+│   ├── tableau_screenshots/
+│   └── tableau_public_link.txt
+│
+├── docs/
+│   ├── data_dictionary.md
+│   └── methodology.md
 │
 ├── requirements.txt
 └── README.md
@@ -229,4 +259,7 @@ retail-price-intelligence/
 
 ## Project Goal
 
-The goal of this project is to demonstrate how **data engineering, SQL, statistics, machine learning, and interactive visualization** can be combined to support real-world retail pricing decisions.
+The goal of this project is to demonstrate a practical analytics workflow that combines data cleaning, data validation, SQL, statistical modeling, customer segmentation, and Tableau dashboard development.
+
+It is designed to show how raw public transaction data can be converted into reproducible, business-oriented analysis for retail pricing and category-management use cases.
+````
