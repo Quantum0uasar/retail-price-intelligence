@@ -29,6 +29,8 @@ This project transforms historical e-commerce transactions into decision-support
 
 ## Tableau Dashboard
 
+> **Tableau Public dashboard:** [Retail Demand & Price Intelligence Dashboard](https://public.tableau.com/app/profile/jaideep.singh4215/viz/RetailDemandPriceIntelligenceDashboard/Dashboard1#1)
+
 The Tableau dashboard contains the following analysis views:
 
 - **Executive Overview:** KPI cards, monthly revenue trends, category performance, and geographic performance
