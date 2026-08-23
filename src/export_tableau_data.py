@@ -21,13 +21,15 @@ def main():
 
     monthly_revenue_query = """
     SELECT
-        strftime('%Y-%m', order_purchase_timestamp) AS order_month,
-        COUNT(DISTINCT order_id) AS total_orders,
-        SUM(price) AS total_revenue,
-        AVG(price) AS avg_item_price,
-        SUM(freight_value) AS total_freight
-    FROM order_items
-    GROUP BY strftime('%Y-%m', order_purchase_timestamp)
+        strftime('%Y-%m', o.order_purchase_timestamp) AS order_month,
+        COUNT(DISTINCT oi.order_id) AS total_orders,
+        SUM(oi.price) AS total_revenue,
+        AVG(oi.price) AS avg_item_price,
+        SUM(oi.freight_value) AS total_freight
+    FROM order_items oi
+    JOIN orders o
+        ON oi.order_id = o.order_id
+    GROUP BY strftime('%Y-%m', o.order_purchase_timestamp)
     ORDER BY order_month;
     """
 
@@ -47,7 +49,11 @@ def main():
 
     export_query(conn, monthly_revenue_query, "monthly_revenue.csv")
     export_query(conn, category_performance_query, "category_performance.csv")
+    elasticity_df = pd.read_csv(BASE_DIR / "data" / "processed" / "elasticity_results.csv")
+    elasticity_df.to_csv(OUTPUT_DIR / "elasticity_results.csv", index=False)
 
+    segments_df = pd.read_csv(BASE_DIR / "data" / "processed" / "customer_segments.csv")
+    segments_df.to_csv(OUTPUT_DIR / "customer_segments.csv", index=False)
     conn.close()
 
 
