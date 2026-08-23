@@ -1,6 +1,3 @@
-Paste this as your new `README.md`. It keeps the work honest, replaces Streamlit/Plotly with Tableau, and adds the Tableau export step you will need to implement. The current README is much shorter and still instructs users to run `streamlit run dashboard/app.py`, so this rewrite should accompany the code changes discussed earlier. [github](https://github.com/Quantum0uasar/retail-price-intelligence/edit/main/README.md)
-
-````markdown
 # Retail Demand & Price Intelligence Dashboard
 
 A portfolio data analytics project that analyzes public Brazilian e-commerce transaction data to surface patterns in category performance, customer behavior, pricing, demand, and freight costs.
@@ -262,4 +259,3 @@ retail-price-intelligence/
 The goal of this project is to demonstrate a practical analytics workflow that combines data cleaning, data validation, SQL, statistical modeling, customer segmentation, and Tableau dashboard development.
 
 It is designed to show how raw public transaction data can be converted into reproducible, business-oriented analysis for retail pricing and category-management use cases.
-````
