@@ -1,21 +1,21 @@
 # Retail Demand & Price Intelligence Dashboard
 
-A portfolio data analytics project that analyzes public Brazilian e-commerce transaction data to surface patterns in category performance, customer behavior, pricing, demand, and freight costs.
+A portfolio data analytics project that analyzes public Brazilian e-commerce transaction data to uncover patterns in category performance, customer behavior, pricing, demand, and freight costs.
 
-The project uses Python and SQL to clean, validate, model, and prepare data for an interactive Tableau dashboard. Findings are based on historical public data and are intended for portfolio analysis only.
+The project uses Python, SQL, and Tableau to clean, validate, model, and visualize historical retail data. It is designed as a portfolio project for analytics and business intelligence use cases, not as a production pricing engine.
 
 ## Business Problem
 
-Retail pricing and category-management teams need a clear way to monitor commercial performance and identify areas that may warrant further pricing review.
+Retail pricing and category-management teams need a clear way to monitor commercial performance and identify areas that may warrant deeper pricing or category review.
 
-This project transforms historical e-commerce transactions into decision-support analysis that helps users explore:
+This project transforms historical e-commerce transactions into decision-support analysis that helps answer questions such as:
 
-- Which product categories generate the most revenue and sales volume
-- How sales trends change over time
-- How average prices, units sold, and freight burden differ across categories
-- Which categories appear more price-sensitive in historical data
-- Which customer groups demonstrate different purchasing behavior
-- Which categories may deserve further commercial or pricing review
+- Which product categories generate the most revenue and sales volume?
+- How do sales trends change over time?
+- How do average prices, units sold, and freight burden differ across categories?
+- Which categories appear more price-sensitive in historical data?
+- Which customer groups demonstrate different purchasing behavior?
+- Which categories may deserve further commercial investigation?
 
 ## Project Features
 
@@ -23,19 +23,19 @@ This project transforms historical e-commerce transactions into decision-support
 - Loads cleaned data into a SQLite database
 - Uses SQL queries and views to calculate business metrics
 - Estimates category-level price elasticity using log-log OLS regression
-- Segments customers with RFM analysis and K-Means clustering
+- Segments customers using RFM analysis and K-Means clustering
 - Exports analytics-ready datasets for Tableau
 - Presents commercial performance, pricing patterns, and customer insights in Tableau Public
 
 ## Tableau Dashboard
 
-The Tableau dashboard contains the following analysis views:
+The Tableau dashboard is designed to support the following analysis areas:
 
-- **Executive Overview:** KPI cards, monthly revenue trends, category performance, and geographic performance
+- **Executive Overview:** KPI cards, monthly revenue trends, and category-level performance
 - **Pricing & Demand:** Price-versus-quantity analysis, average price comparisons, freight burden, and estimated category elasticity
 - **Customer Segmentation:** RFM-based customer groups and spending behavior
 - **Category Drill-Down:** Filters for category, date, and commercial metrics
-- **Insights & Recommendations:** Portfolio findings that identify patterns for additional pricing or category review
+- **Insights & Recommendations:** Portfolio findings that highlight patterns for additional pricing or category review
 
 > **Tableau Public dashboard:** [Retail Demand & Price Intelligence Dashboard](https://public.tableau.com/app/profile/jaideep.singh4215/viz/RetailDemandPriceIntelligenceDashboard/Dashboard1#1)
 
@@ -82,7 +82,7 @@ Key preparation steps include:
 6. Creating analysis fields such as order month, revenue, average price, and freight burden
 7. Loading cleaned tables into SQLite
 
-Validation rules and assumptions should be documented in the project methodology.
+These steps help create a consistent analytical dataset for downstream SQL analysis, modeling, and dashboard development.
 
 ## SQL Analysis
 
@@ -104,9 +104,9 @@ The project estimates category-level price elasticity using a log-log OLS regres
 log(quantity) = β0 + β1 × log(price)
 ```
 
-The price coefficient, \(β1\), represents the estimated elasticity.
+The price coefficient, `β1`, represents the estimated elasticity.
 
-For example:
+Example:
 
 ```text
 Elasticity = -2.0
@@ -114,17 +114,17 @@ Elasticity = -2.0
 
 This means a 1% higher historical price was associated with approximately 2% lower demand in the model.
 
-More negative values suggest stronger historical price sensitivity. These estimates are descriptive associations and should not be interpreted as causal evidence.
+More negative values suggest stronger historical price sensitivity. These estimates are descriptive historical associations and should not be interpreted as causal evidence.
 
 ## Customer Segmentation
 
-Customers are grouped with RFM analysis:
+Customers are grouped using RFM analysis:
 
 - **Recency:** How recently a customer purchased
 - **Frequency:** How often a customer purchased
 - **Monetary:** How much a customer spent
 
-RFM measures are standardized with `StandardScaler`, then K-Means clustering assigns customers to behavioral segments.
+RFM features are standardized with `StandardScaler`, and K-Means clustering is used to assign customers to behavioral segments.
 
 This helps illustrate differences among high-value, repeat, recent, and lower-spending customer groups.
 
@@ -140,7 +140,7 @@ The dashboard evaluates category performance through metrics such as:
 - Historical estimated elasticity
 - Customer-segment contribution
 
-These metrics help users compare categories and identify areas that may merit further business review.
+Together, these metrics help users compare categories and identify areas that may merit deeper commercial review.
 
 ## Strategic Use Case
 
@@ -160,8 +160,8 @@ The Olist dataset is public, historical, and observational.
 - Elasticity estimates represent historical associations, not proven causal effects
 - Promotions, seasonality, product mix, seller behavior, product quality, competition, and other factors may affect demand
 - The dataset does not include full product cost or COGS information, so this project does not measure true profitability
-- Findings are portfolio analysis and are not real-world business recommendations
-- Tableau visualizations are intended to support exploration of the dataset, not to make automated pricing decisions
+- Findings are intended for portfolio analysis and learning purposes, not real-world pricing decisions
+- Tableau visualizations are designed to support exploration of the dataset, not to automate business decisions
 
 ## Dataset
 
@@ -174,7 +174,7 @@ The dataset contains approximately:
 - 112,000 order items
 - 32,000 products
 
-Add the original dataset source and license link here.
+Original source: add the official Olist dataset link and license/reference link here once you finalize the repo.
 
 ## Running the Project
 
@@ -215,7 +215,7 @@ Create Tableau-ready data exports:
 python src/export_tableau_data.py
 ```
 
-Open the exported files in Tableau Desktop or Tableau Public, build the dashboard, and publish it to Tableau Public.
+Then open the exported files in Tableau Desktop or Tableau Public, build the dashboard, and publish the final workbook to Tableau Public.
 
 ## Project Structure
 
@@ -258,4 +258,4 @@ retail-price-intelligence/
 
 The goal of this project is to demonstrate a practical analytics workflow that combines data cleaning, data validation, SQL, statistical modeling, customer segmentation, and Tableau dashboard development.
 
-It is designed to show how raw public transaction data can be converted into reproducible, business-oriented analysis for retail pricing and category-management use cases.
+It shows how raw public transaction data can be converted into reproducible, business-oriented analysis for retail pricing and category-management use cases.
