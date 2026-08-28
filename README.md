@@ -174,7 +174,7 @@ The dataset contains approximately:
 - 112,000 order items
 - 32,000 products
 
-Original source: add the official Olist dataset link and license/reference link here once you finalize the repo.
+Original source: the official Olist dataset link and license/reference link is yet be added.
 
 ## Running the Project
 
